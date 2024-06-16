@@ -1,32 +1,22 @@
 <template>
-  <span
-    @click="openModal"
-    class="bi bi-pen-fill pointer mx-3"
-    data-toggle="tooltip"
-    data-placement="top"
-    title="Edit"
-  ></span>
-  
+  <span @click="openModal" class="bi bi-pen-fill pointer mx-3" data-toggle="tooltip" data-placement="top"
+    title="Edit"></span>
+  <div class="modal" :class="{ 'd-block': showModal }">
+    <div class="modal-dialog">
+      <div class="modal-content">
 
-  <!-- <button @click="openModal" class="btn btn-primary">Open Dialog</button> -->
-
-    <div class="modal" :class="{ 'd-block': showModal }">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          
-          <div class="modal-body">
-            <input type="text" class="form-control" v-model="title.title">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" @click="editTask(task)">Save</button>
-            <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-          </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" v-model="title.title">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" @click="editTask(task)">Save</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="modal-backdrop fade show" v-if="showModal"></div>
-  
+  <div class="modal-backdrop fade show" v-if="showModal"></div>
+
 </template>
 
 <script setup>
@@ -38,7 +28,6 @@ const store = useTaskStore();
 const showModal = ref(false)
 const title = ref(props.task)
 
-// const tasks = computed(() => store.GetTasks);
 
 function openModal() {
   showModal.value = true
@@ -49,7 +38,7 @@ function closeModal() {
 }
 
 function editTask(title) {
-  console.log('title' ,title)
+  console.log('title', title)
   store.editTasks(title);
   closeModal()
 }

@@ -61,7 +61,7 @@ export const useTaskStore = defineStore("task", {
     };
   },
   getters: {
-    GetTasks(state) {
+    getTasks(state) {
       return state.tasks.slice(0, this.selectedNumber);
     },
   },
@@ -116,10 +116,7 @@ export const useTaskStore = defineStore("task", {
       const taskIndex = this.tasks.findIndex((item) => item.id === task.id);
       if (taskIndex !== -1) {
         const targetTask = this.tasks[taskIndex];
-        
-        console.log(targetTask.title)
       }
-      
     },
     deleteTasks(id) {
       const newTasks = this.tasks.filter((item) => item.id !== id);
@@ -133,6 +130,17 @@ export const useTaskStore = defineStore("task", {
         toast: true,
         position: "top",
       });
+    },
+    searchTasks(searchQuery) {
+      const oldTask = JSON.parse(JSON.stringify(this.tasks))
+      if (searchQuery) {
+        this.tasks = this.tasks.filter((task) =>
+        task.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      } else {
+        console.log(oldTask)
+        this.tasks = oldTask
+      }
     },
   },
 });
