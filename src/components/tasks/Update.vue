@@ -17,14 +17,13 @@
   ></span>
   <span
     v-else
-    class="spinner-border spinner-border-sm pointer"
-    style="font-size: 5px"
     @click="updateTask(task)"
-    role="status pointer"
+    class="bi bi-hourglass-split pointer"
     data-toggle="tooltip"
     data-placement="top"
     title="Doing"
   ></span>
+
 </template>
 
 <script setup>

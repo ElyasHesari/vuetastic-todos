@@ -5,7 +5,7 @@
     <FilterTask />
 
     <div class="row g-3">
-      <div v-for="(task, index) in tasks" :key="index" class="col-md-4">
+      <div v-for="task in tasks" :key="task.id" class="col-md-4">
         <div
           class="card"
           :class="{
