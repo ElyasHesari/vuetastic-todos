@@ -103,7 +103,7 @@ export const useTaskStore = defineStore("task", {
         }
       }
       Swal.fire({
-        title: "Task update",
+        title: "Task updated",
         icon: "warning",
         showConfirmButton: false,
         timerProgressBar: true,
@@ -117,6 +117,15 @@ export const useTaskStore = defineStore("task", {
       if (taskIndex !== -1) {
         const targetTask = this.tasks[taskIndex];
       }
+      Swal.fire({
+        title: "Task edited",
+        icon: "success",
+        showConfirmButton: false,
+        timerProgressBar: true,
+        timer: 3000,
+        toast: true,
+        position: "top",
+      });
     },
     deleteTasks(id) {
       const newTasks = this.tasks.filter((item) => item.id !== id);
@@ -131,16 +140,6 @@ export const useTaskStore = defineStore("task", {
         position: "top",
       });
     },
-    searchTasks(searchQuery) {
-      const oldTask = JSON.parse(JSON.stringify(this.tasks))
-      if (searchQuery) {
-        this.tasks = this.tasks.filter((task) =>
-        task.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      } else {
-        console.log(oldTask)
-        this.tasks = oldTask
-      }
-    },
+    
   },
 });

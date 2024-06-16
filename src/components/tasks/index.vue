@@ -6,13 +6,13 @@
       <FilterTask class="col-md-6" />
       <div class="col-md-6">
         <h6 class="text-start">Search Tasks:</h6>
-        <input type="text" @change="filteredTasks" v-model="searchQuery" class="form-control"
+        <input type="text" v-model="searchQuery" class="form-control"
           placeholder="Search tasks..." />
       </div>
     </div>
 
     <div class="row g-3">
-      <div v-for="task in tasks" :key="task.id" class="col-md-4">
+      <div v-for="task in filteredTasks" :key="task.id" class="col-md-4">
         <div class="card" :class="{
           'bg-success bg-gradient bg-opacity-50': task.completed == 'done',
           'bg-success bg-gradient bg-opacity-25':
@@ -52,7 +52,13 @@ const searchQuery = ref('')
 const tasks = computed(() => store.getTasks);
 
 const filteredTasks = computed(() => {
-  store.searchTasks(searchQuery.value);
+  if (searchQuery.value) {
+    return tasks.value.filter((task) =>
+      task.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+  } else {
+    return tasks.value
+  }
 
 });
 </script>
