@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
+import broadcastChannelService from "../services/broadcastChannelService";
 
 export const useTaskStore = defineStore("task", {
   state: () => {
@@ -68,6 +69,7 @@ export const useTaskStore = defineStore("task", {
   actions: {
     filterTasks(selectedNumber) {
       this.selectedNumber = selectedNumber;
+      broadcastChannelService.postTodos(this.tasks)
     },
     storeTasks(title) {
       let numberTask = this.tasks.length + 1;
@@ -76,6 +78,8 @@ export const useTaskStore = defineStore("task", {
         title: title,
         completed: "not_done",
       });
+      broadcastChannelService.postTodos(this.tasks)
+
       Swal.fire({
         title: "Task added",
         icon: "success",
@@ -102,6 +106,8 @@ export const useTaskStore = defineStore("task", {
             break;
         }
       }
+      broadcastChannelService.postTodos(this.tasks)
+
       Swal.fire({
         title: "Task updated",
         icon: "warning",
@@ -117,6 +123,8 @@ export const useTaskStore = defineStore("task", {
       if (taskIndex !== -1) {
         const targetTask = this.tasks[taskIndex];
       }
+      broadcastChannelService.postTodos(this.tasks)
+
       Swal.fire({
         title: "Task edited",
         icon: "success",
@@ -130,6 +138,8 @@ export const useTaskStore = defineStore("task", {
     deleteTasks(id) {
       const newTasks = this.tasks.filter((item) => item.id !== id);
       this.tasks = newTasks;
+      broadcastChannelService.postTodos(this.tasks)
+
       Swal.fire({
         title: "Task deleted",
         icon: "error",
